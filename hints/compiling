@@ -2,6 +2,7 @@ Linux:
   ./configure --enable-color --enable-extra --enable-multibuffer --enable-nanorc --enable-utf8 --disable-justify
   make
   sudo mv ./src/nano /usr/bin/nano
+  Add "export TERM=xterm-256colors" to .profile/.bashrc if(system(tput colors) != 256)
 
 OSX:
   ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"    # install homebrew
