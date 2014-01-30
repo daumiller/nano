@@ -1,0 +1,11 @@
+*Makefile
+*Makefile.in
+config.h
+config.log
+config.status
+doc/nanorc.sample
+*POTFILES
+*/.deps
+stamp-h1
+*.o
+src/nano

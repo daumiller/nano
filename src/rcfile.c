@@ -683,8 +683,33 @@ void parse_include(char *ptr)
 short color_to_short(const char *colorname, bool *bright)
 {
     short mcolor = -1;
+    unsigned red, green, blue;
+    int colorcount = 0;
 
     assert(colorname != NULL && bright != NULL);
+
+    colorcount = sscanf(colorname, "%u:%u:%u", &red, &green, &blue);
+    if (colorcount == 3) {
+      *bright = FALSE;
+      if (red > 5) red = 5;
+      if (green > 5) green = 5;
+      if (blue> 5) blue = 5;
+      return 16 + (red * 36) + (green * 6) + blue;
+    }
+
+    colorcount = sscanf(colorname, "gray%hu", &mcolor);
+    if (colorcount == 1) {
+      *bright = FALSE;
+      if (mcolor > 23) mcolor = 23;
+      return 232 + mcolor;
+    }
+
+    colorcount = sscanf(colorname, "%hu", &mcolor);
+    if (colorcount == 1) {
+      *bright = FALSE;
+      if (mcolor > 255) mcolor = 255;
+      return mcolor;
+    }
 
     if (strncasecmp(colorname, "bright", 6) == 0) {
 	*bright = TRUE;
@@ -707,12 +732,13 @@ short color_to_short(const char *colorname, bool *bright)
 	mcolor = COLOR_MAGENTA;
     else if (strcasecmp(colorname, "black") == 0)
 	mcolor = COLOR_BLACK;
-    else
-	rcfile_error(N_("Color \"%s\" not understood.\n"
-		"Valid colors are \"green\", \"red\", \"blue\",\n"
-		"\"white\", \"yellow\", \"cyan\", \"magenta\" and\n"
-		"\"black\", with the optional prefix \"bright\"\n"
-		"for foreground colors."), colorname);
+
+  if (mcolor == -1)
+	  rcfile_error(N_("Color \"%s\" not understood.\n"
+		  "Valid colors are \"green\", \"red\", \"blue\",\n"
+		  "\"white\", \"yellow\", \"cyan\", \"magenta\" and\n"
+		  "\"black\", with the optional prefix \"bright\"\n"
+		  "for foreground colors."), colorname);
 
     return mcolor;
 }
