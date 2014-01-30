@@ -1,0 +1,42 @@
+# C/Objective-C
+syntax "objc" "\.(m|c|h|cpp)$"
+
+## Objective-C
+color green "\<[O][F][A-Za-z0-9_]+\>"
+color green "\<[N][S][A-Za-z0-9_]+\>"
+color cyan "\[+[[:space:]]*[^0-9][A-Za-z0-9_]+"
+color cyan "\[+[[:space:]]*[^0-9][^:\]]+"
+color cyan "\]+"
+color brightwhite "\[[^: ]+\]"
+color brightwhite "\[\]"
+color magenta "\<[A-Za-z_][A-Za-z0-9_]*\>:"
+
+## Constants, Preprocessor, Attributes
+color brightred "\<[A-Z_][0-9A-Z_]+\>" 
+color brightred "^[[:space:]]*#[[:space:]]*(import|define|undef|include|ifn?def|endif|elif|else|if|warning|error)"
+color brightred "__attribute__[[:space:]]*\(\([^)]*\)\)" "__(aligned|asm|builtin|hidden|inline|packed|restrict|section|typeof|weak)__"
+
+## Data Types
+color green "\<(float|double|bool|char|uchar|UChar|int|short|long|sizeof|enum|void|static|const|struct|union|typedef|extern|signed|unsigned|inline)\>"
+color green "\<(u_?)?int(8|16|32|64|ptr)_t\>"
+color green "\<(u|i)(8|16|32|64)\>"
+color green "\<f(32|64)\>"
+
+## Keywords
+color magenta "\<(class|namespace|template|public|protected|private|typename|this|friend|virtual|using|mutable|volatile|register|explicit)\>"
+color magenta "\<(for|if|while|do|else|case|default|switch)\>"
+color magenta "\<(try|throw|catch|operator|new|delete)\>"
+color magenta "\<(goto|continue|break|return)\>"
+color magenta "\<(YES|NO|in|nil|Nil)\>"
+color magenta "@\<(class|interface|implementation|end|property|compatibility_alias)\>"
+
+## Literals
+color brightyellow "@?\<0x[0-9a-fA-F]+\>"
+color brightyellow "@?\<[0-9]+\.[0-9]+\>"
+color brightyellow "@?\<[0-9]+\>"
+color brightyellow "@?"(\\.|[^"])*""
+color brightyellow start="@?"(\\.|[^"])*\\[[:space:]]*$" end="^(\\.|[^"])*""
+
+## Comments
+color brightblue "//.*"
+color brightblue start="/\*" end="\*/"

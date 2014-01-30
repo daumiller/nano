@@ -1,0 +1,16 @@
+Linux:
+  ./configure --enable-color --enable-extra --enable-multibuffer --enable-nanorc --enable-utf8 --disable-justify
+  make
+  sudo mv ./src/nano /usr/bin/nano
+
+OSX:
+  ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"    # install homebrew
+  brew doctor              # homebrew init
+  brew tap homebrew/dupes  # osx already has an ncurses; so we need dupes
+  brew install ncurses     # install alternate ncurses (including the needed ncursesw)
+  ./configure LDFLAGS="-L/usr/local/opt/ncurses/lib" CPPFLAGS="-I/usr/local/opt/ncurses/include"
+      --enable-color --enable-extra --enable-multibuffer --enable-nanorc --enable-utf8 --disable-justify
+      # we need the extra LDFLAGS & CFLAGS to point to the alternate ncurses
+  make
+  sudo mv /usr/bin/nano /usr/bin/nano.old
+  sudo mv ./src/nano /usr/bin/nano
