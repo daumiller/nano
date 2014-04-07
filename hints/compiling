@@ -1,4 +1,5 @@
 Linux:
+  sudo apt-get install libncursesw5-dev
   ./configure --enable-color --enable-extra --enable-multibuffer --enable-nanorc --enable-utf8 --disable-justify
   make
   sudo mv ./src/nano /usr/bin/nano
